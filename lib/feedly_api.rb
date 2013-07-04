@@ -5,6 +5,7 @@ module FeedlyApi
   API_ENDPOINT = 'http://cloud.feedly.com/v3/'
 
   class Error < StandardError; end
+  class BadRequest < StandardError; end
 
   class Feed
     attr_reader :url, :subscribers, :title, :velocity
@@ -20,14 +21,14 @@ module FeedlyApi
       url += CGI.escape(@url)
       json = JSON.parse(get(url))
 
-      @subscribers = json['subscribers']
-      @title       = json['title']
-      @velocity    = json['velocity']
+      @subscribers = json.fetch('subscribers')
+      @title       = json.fetch('title')
+      @velocity    = json.fetch('velocity')
     end
 
     def items(params = {})
       json = JSON.parse(get(construct_url(params)), symbolize_names: true)
-      json[:items]
+      json.fetch(:items)
     end
 
     private
@@ -45,6 +46,7 @@ module FeedlyApi
     def get(url)
       response = Net::HTTP.get_response(URI(url))
       raise Error unless 200 == response.code.to_i
+      raise BadRequest if 'null' == response.body
       response.body
     end
   end
