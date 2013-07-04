@@ -6,9 +6,11 @@ Early unofficial Feedly API
 ## Usage
 
 ```ruby
-feedly = FeedlyApi::Client.new 'https://www.eff.org/rss/updates.xml'
-=> #<FeedlyApi::Client:0xb9c48600 @url="http://gazeta.ua/export/rss.xml">
-feedly.items
+feedly = FeedlyApi::Client.new 
+=> #<FeedlyApi::Client:0xb91fed0c @auth_token=nil>
+feed = feedly.feed 'https://www.eff.org/rss/updates.xml'
+=> #<FeedlyApi::Feed:0xb9205f94 @url="https://www.eff.org/rss/updates.xml">
+feed.items
 => [{:id=>
    "55jQyVFBayOwBJQ5qCX8DsgTPumTnzjw6LozTAKPiWA=_13fa6b1134b:1a10f:eacbe387",
   :originId=>"74790 at https://www.eff.org",
@@ -16,7 +18,7 @@ feedly.items
   :title=>"Weev's Case Flawed From Beginning to End",
   :published=>1372888846000, 
   # ...
-feedly.items(ranked: 'oldest')
+feed.items(ranked: 'oldest')
 => [{:id=>
    "55jQyVFBayOwBJQ5qCX8DsgTPumTnzjw6LozTAKPiWA=_13f12b61e62:1a2a50:4b1c86ed",
   :originId=>"74409 at https://www.eff.org",
@@ -26,9 +28,9 @@ feedly.items(ranked: 'oldest')
 Blacklist Law",
   :published=>1370282860000,
   # ...
-feedly.items.length
+feed.items.length
 => 20
-feedly.items(count: 50, ranked: 'oldest').length
+feed.items(count: 50, ranked: 'oldest').length
 => 50
 ```
 
