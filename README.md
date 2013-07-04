@@ -1,9 +1,7 @@
-feedly_api
+feedly_api [![Build Status](https://travis-ci.org/Myuzu/feedly_api.png?branch=master)](https://travis-ci.org/Myuzu/feedly_api) [![Code Climate](https://codeclimate.com/github/Myuzu/feedly_api.png)](https://codeclimate.com/github/Myuzu/feedly_api)
 ==========
 
 Early unofficial Feedly API
-
-[![Build Status](https://travis-ci.org/Myuzu/feedly_api.png?branch=master)](https://travis-ci.org/Myuzu/feedly_api)
 
 ## Limitations
 * no auth for now
