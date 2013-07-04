@@ -9,7 +9,11 @@ Early unofficial Feedly API
 feedly = FeedlyApi::Client.new 
 => #<FeedlyApi::Client:0xb91fed0c @auth_token=nil>
 feed = feedly.feed 'https://www.eff.org/rss/updates.xml'
-=> #<FeedlyApi::Feed:0xb9205f94 @url="https://www.eff.org/rss/updates.xml">
+=> #<FeedlyApi::Feed:0xb90aef38
+ @subscribers=2348,
+ @title="Deeplinks",
+ @url="https://www.eff.org/rss/updates.xml",
+ @velocity=15.2>
 feed.items
 => [{:id=>
    "55jQyVFBayOwBJQ5qCX8DsgTPumTnzjw6LozTAKPiWA=_13fa6b1134b:1a10f:eacbe387",
