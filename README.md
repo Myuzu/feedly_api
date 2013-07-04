@@ -7,7 +7,7 @@ Early unofficial Feedly API
 
 ```ruby
 feedly = FeedlyApi::Client.new 'https://www.eff.org/rss/updates.xml'
-=> 
+=> #<FeedlyApi::Client:0xb9c48600 @url="http://gazeta.ua/export/rss.xml">
 feedly.items
 => [{:id=>
    "55jQyVFBayOwBJQ5qCX8DsgTPumTnzjw6LozTAKPiWA=_13fa6b1134b:1a10f:eacbe387",
@@ -31,3 +31,7 @@ feedly.items.length
 feedly.items(count: 50, ranked: 'oldest').length
 => 50
 ```
+
+## License
+
+Apache License, Version 2.0
