@@ -3,6 +3,8 @@ feedly_api
 
 Early unofficial Feedly API
 
+[![Build Status](https://travis-ci.org/Myuzu/feedly_api.png?branch=master)](https://travis-ci.org/Myuzu/feedly_api)
+
 ## Limitations
 * no auth for now
 * only feed stats and feed items
