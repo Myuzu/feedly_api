@@ -1,4 +1,5 @@
 module FeedlyApi
+  VERSION = '0.1b'
 
   class Client
     API_ENDPOINT = 'http://cloud.feedly.com/v3/'
