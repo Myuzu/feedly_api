@@ -1,12 +1,26 @@
+# encoding: utf-8
+
 module FeedlyApi
-  VERSION = '0.2b'
+  VERSION = '0.3b'
   API_ENDPOINT = 'http://cloud.feedly.com/v3/'
 
   class Feed
-    attr_reader :url
+    attr_reader :url, :subscribers, :title, :velocity
 
     def initialize(url)
       @url = url
+      get_info
+    end
+
+    def get_info
+      url  = API_ENDPOINT
+      url += 'feeds/feed%2F'
+      url += CGI.escape(@url)
+      json = JSON.parse(get(url))
+
+      @subscribers = json['subscribers']
+      @title       = json['title']
+      @velocity    = json['velocity']
     end
 
     def items(params = {})
