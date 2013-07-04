@@ -32,6 +32,12 @@ feedly.items(count: 50, ranked: 'oldest').length
 => 50
 ```
 
+List of params you can pass to `items` method:
+* `ranked`: 'oldest', 'newest'
+* `count`: integer, number of feed items to return (1..1000)
+* `continuation`: string
+* maybe some other params...
+
 ## License
 
 Apache License, Version 2.0

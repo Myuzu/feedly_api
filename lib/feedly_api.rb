@@ -21,6 +21,7 @@ module FeedlyApi
       url  = API_ENDPOINT
       url += CGI.escape(@url)
       url += '/contents?'
+      url += "ck=#{Time.now.to_i}000&"
       url += params
     end
 
