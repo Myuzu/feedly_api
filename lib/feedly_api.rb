@@ -1,7 +1,7 @@
 module FeedlyApi
 
   class Client
-    API_ENDPOINT = 'http://cloud.feedly.com/v3/streams/feed%2F'
+    API_ENDPOINT = 'http://cloud.feedly.com/v3/'
 
     attr_reader :url
 
@@ -19,6 +19,7 @@ module FeedlyApi
     def construct_url(options)
       params = options.map { |k,v| "#{k.to_s}=#{v.to_s}&" }.join
       url  = API_ENDPOINT
+      url += 'streams/feed%2F'
       url += CGI.escape(@url)
       url += '/contents?'
       url += "ck=#{Time.now.to_i}000&"
