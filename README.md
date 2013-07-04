@@ -3,6 +3,11 @@ feedly_api
 
 Early unofficial Feedly API
 
+## Limitations
+* no auth for now
+* only feed stats and feed items
+* continuation not implemented
+
 ## Usage
 
 ```ruby

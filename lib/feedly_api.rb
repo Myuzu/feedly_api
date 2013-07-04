@@ -1,8 +1,10 @@
 # encoding: utf-8
 
 module FeedlyApi
-  VERSION = '0.3b'
+  VERSION      = '0.3b'
   API_ENDPOINT = 'http://cloud.feedly.com/v3/'
+
+  class Error < StandardError; end
 
   class Feed
     attr_reader :url, :subscribers, :title, :velocity
@@ -42,7 +44,7 @@ module FeedlyApi
 
     def get(url)
       response = Net::HTTP.get_response(URI(url))
-      raise unless 200 == response.code.to_i
+      raise Error unless 200 == response.code.to_i
       response.body
     end
   end
@@ -60,4 +62,5 @@ module FeedlyApi
   require 'cgi'
   require 'net/http'
   require 'json'
+  require 'date'
 end
