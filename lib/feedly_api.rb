@@ -7,7 +7,7 @@ require 'feedly_api/client'
 
 module FeedlyApi
   class Feed
-    attr_reader :url, :subscribers, :title, :velocity
+    attr_reader :url, :subscribers, :title, :velocity, :id
 
     def initialize(url)
       @url = url
