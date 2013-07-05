@@ -51,6 +51,7 @@ List of params you can pass to `items` method:
 * maybe some other params...
 
 ## Supported Ruby Versions
+
 feedly_api is tested under 1.9.3, 2.0.0, JRuby (1.9 mode), and Rubinius (1.9 mode).
 
 ## License

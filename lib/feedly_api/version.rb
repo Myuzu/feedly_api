@@ -1,3 +1,3 @@
 module FeedlyApi
-  VERSION = '0.4b'
+  VERSION = '0.4.1'
 end
