@@ -17,9 +17,9 @@ module FeedlyApi
 
     def get_info
       json = Api.fetch(:feeds, @id)
-      @subscribers = json.fetch(:subscribers)
-      @title       = json.fetch(:title)
-      @velocity    = json.fetch(:velocity)
+      @subscribers = json.fetch(:subscribers) { nil }
+      @title       = json.fetch(:title) { nil }
+      @velocity    = json.fetch(:velocity) { nil }
     end
 
     def items(params = {})
