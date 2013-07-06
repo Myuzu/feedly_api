@@ -33,7 +33,7 @@ describe FeedlyApi::Feed do
       end
 
       it 'takes :count param to get more or less feed items' do
-        expect(feed.items(count: 50).length).to eq 50
+        expect(feed.items(count: 2).length).to eq 2
       end
 
       it 'takes :ranked param with value "oldest" and returns oldest items first' do
@@ -43,6 +43,11 @@ describe FeedlyApi::Feed do
     end
 
     context 'not valid params' do
+      it 'returns oldest first if :ranked params is other then "newest"' do
+        items = feed.items(ranked: 'NOT_VALID_VALUE')
+        expect(items.first[:published] < items.last[:published]).to be_true
+      end
+
       it 'returns 0 items for negative :count param' do
         expect(feed.items(count: -50).length).to eq 0
       end
