@@ -1,5 +1,14 @@
 require 'spec_helper'
 
+describe FeedlyApi::Client do
+  describe '#feed' do
+    it 'creates Feed object for given url' do
+      client = FeedlyApi::Client.new.feed 'https://www.eff.org/rss/updates.xml'
+      expect(client.url).to eq 'https://www.eff.org/rss/updates.xml'
+    end
+  end
+end
+
 describe FeedlyApi::Feed do
 
   describe '#new' do
