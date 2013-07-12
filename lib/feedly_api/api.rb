@@ -1,11 +1,11 @@
 module FeedlyApi
   module Api
-    API_ENDPOINT = 'http://cloud.feedly.com/v3/'
+    API_ENDPOINT = 'http://cloud.feedly.com/v3/'.freeze
 
     class << self
       def fetch(resource, id, params = {})
         params = params.map { |k,v| "#{k.to_s}=#{v.to_s}&" }.join
-        
+
         url  = API_ENDPOINT
         url += resource.to_s
         url += '/'
