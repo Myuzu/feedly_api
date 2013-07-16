@@ -1,30 +1,36 @@
 module FeedlyApi
-  module Api
-    API_ENDPOINT = 'http://cloud.feedly.com/v3/'.freeze
+  module API
 
-    class << self
-      def fetch(resource, id, params = {})
-        params = params.map { |k,v| "#{k.to_s}=#{v.to_s}&" }.join
+    def get_user_profile
+      make_request('profile')
+    end
 
-        url  = API_ENDPOINT
-        url += resource.to_s
-        url += '/'
-        url += id
-        url += '/contents' if :streams == resource
-        url += "?ck=#{Time.now.to_i}000&"
-        url += params
+    def get_feed_info(feed_id)
+      feed_id = CGI.escape(feed_id)
+      make_request("feeds/#{feed_id}")
+    end
 
-        JSON.parse(get(url), symbolize_names: true)
-      end
+    def get_subscriptions
+      make_request('subscriptions/')
+    end
 
-      private
+    def get_feed_contents(feed_id, args = {})
+      feed_id = CGI.escape(feed_id)
+      make_request("streams/#{feed_id}/contents", args)
+    end
 
-      def get(url)
-        response = Net::HTTP.get_response(URI(url))
-        raise Error unless 200 == response.code.to_i
-        raise BadRequest if 'null' == response.body
-        response.body
-      end
+    def get_tag_contents(tag_id, args = {})
+      tag = CGI.escape("user/#{@user_id}/tag/#{tag_id}")
+      make_request("streams/#{tag}/contents", args)
+    end
+
+    def get_category_contents(category_id, args = {})
+      category = CGI.escape("user/#{@user_id}/category/#{category_id}")
+      make_request("/streams/#{category}/contents", args)
+    end
+
+    def get_markers
+      make_request('markers/counts')
     end
   end
 end

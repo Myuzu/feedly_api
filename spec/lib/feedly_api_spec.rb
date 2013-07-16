@@ -1,69 +1,98 @@
 require 'spec_helper'
 
 describe FeedlyApi::Client do
-  describe '#feed' do
-    it 'creates Feed object for given url' do
-      client = FeedlyApi::Client.new.feed 'https://www.eff.org/rss/updates.xml'
-      expect(client.url).to eq 'https://www.eff.org/rss/updates.xml'
-    end
-  end
-end
-
-describe FeedlyApi::Feed do
+  let(:auth_token) { ENV['FEEDLY_TOKEN'] || 'GREATE_AUTH_TOKEN' }
+  let(:user_id)    { ENV['FEEDLY_USER_ID'] || '00000000-000-NOT-VALID-a29b6679bb3c' }
+  let(:client)     { FeedlyApi::Client.new auth_token }
 
   describe '#new' do
-    context 'valid url' do
-      let(:feed) { FeedlyApi::Feed.new 'https://www.eff.org/rss/updates.xml' }
-
-      it 'has url' do
-        expect(feed.url).to eq 'https://www.eff.org/rss/updates.xml'
-      end
-
-      it 'has id' do
-        expect(feed.id).to eq 'feed%2Fhttps%3A%2F%2Fwww.eff.org%2Frss%2Fupdates.xml'
-      end
+    before :each do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'profile.json')))
     end
 
-    context 'invalid url' do
-      it 'fails with exception' do
-        expect {
-          FeedlyApi::Feed.new 'https://www.eff.org/rss/updates.xml12'
-        }.to raise_error
-      end
+    it 'creates Client object with given token' do
+      client = FeedlyApi::Client.new auth_token
+      expect(client.auth_token).to eq auth_token
+    end
+
+    it 'saves user_id' do
+      expect(client.user_id).to eq '00000000-000-NOT-VALID-a29b6679bb3c' #user_id
     end
   end
 
-  describe '#items' do
-    let(:feed) { FeedlyApi::Feed.new 'https://www.eff.org/rss/updates.xml' }
+  describe '#get_user_profile' do
+    # rewrite for more accurancy
+    it 'returns user info' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'profile.json')))
+      expect(client.get_user_profile[:client]).to eq 'feedly'
+    end
+  end
 
-    context 'valid params' do
-      it 'returns 20 feed items by default' do
-        expect(feed.items.length).to eq 20
-      end
+  describe '#get_feed_info' do
+    it 'retrievs basic feed info' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'feed_info.json')))
+      feed_info = client.get_feed_info('feed/https://www.eff.org/rss/updates.xml')
+      expect(feed_info[:website]).to eq 'https://www.eff.org/rss/updates.xml'
+    end
+  end
 
-      it 'takes :count param to get more or less feed items' do
-        expect(feed.items(count: 2).length).to eq 2
-      end
+  describe '#get_subscriptions' do
+    it 'retrievs user subscriptions' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'subscriptions.json')))
+      expect(client.get_subscriptions.size).to eq 3
+    end
+  end
 
-      it 'takes :ranked param with value "oldest" and returns oldest items first' do
-        items = feed.items(ranked: 'oldest')
-        expect(items.first[:published] < items.last[:published]).to be_true
-      end
+  describe '#get_feed_contents' do
+    it 'retrievs feed contents' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'feed_contents_20.json')))
+      feed_contents = client.get_feed_contents('feed/https://www.eff.org/rss/updates.xml')
+      expect(feed_contents[:items].size).to eq 20
     end
 
-    context 'not valid params' do
-      it 'returns oldest first if :ranked params is other then "newest"' do
-        items = feed.items(ranked: 'NOT_VALID_VALUE')
-        expect(items.first[:published] < items.last[:published]).to be_true
-      end
+    it 'retrievs custom number of feed items' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'feed_contents_10.json')))
+      feed_contents = client.get_feed_contents('feed/https://www.eff.org/rss/updates.xml', {count: 10})
+      expect(feed_contents[:items].size).to eq 10
+    end
 
-      it 'returns 0 items for negative :count param' do
-        expect(feed.items(count: -50).length).to eq 0
-      end
+    it 'returns feed items in custom order'
 
-      it 'return defaul count of items (20) for non integer value' do
-        expect(feed.items(count: 'NOT_AN_INTEGER').length).to eq 20
-      end
+    it 'returns unred only feed items'
+  end
+
+  describe '#get_tag_contents' do
+    it 'retrievs content for specific tag' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'tagged.json')))
+      feed_contents = client.get_tag_contents('global.saved')
+      expect(feed_contents[:items].size).to eq 1
+    end
+
+    # Update fixture for more items with tags
+    # it 'retrievs custom number of feed items for specific tag' do
+    #   feed_contents = client.get_tag_contents('global.saved', {count: 10})
+    #   expect(feed_contents[:items].size).to eq 10
+    # end
+  end
+
+  describe '#get_category_contents' do
+    it 'retrievs content for custom category_id' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'uncategoriezed.json')))
+      feed_contents = client.get_category_contents('global.uncategorized')
+      expect(feed_contents[:items].size).to eq 16
+    end
+
+    it 'retrievs custom number of feed items for specific category_id' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'uncategoriezed_10.json')))
+      feed_contents = client.get_category_contents('global.uncategorized', {count: 10})
+      expect(feed_contents[:items].size).to eq 10
+    end
+  end
+
+  describe '#get_markers' do
+    it 'returns unred counts for all feeds' do
+      FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'markers.json')))
+      expect(client.get_markers[:unreadcounts].last[:count]).to eq 16
     end
   end
 end

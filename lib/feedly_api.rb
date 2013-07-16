@@ -2,28 +2,35 @@
 
 require 'feedly_api/version'
 require 'feedly_api/errors'
-require 'feedly_api/api'
 require 'feedly_api/client'
+require 'feedly_api/feed'
 
 module FeedlyApi
-  class Feed
-    attr_reader :url, :subscribers, :title, :velocity, :id
+  API_ENDPOINT = 'http://cloud.feedly.com/v3/'.freeze
 
-    def initialize(url)
-      @url = url
-      @id  = "feed%2F#{CGI.escape(@url)}"
-      get_info
-    end
+  class << self
+    def get(url, token)
+      return nil if token.nil?
+      uri = URI(url)
+      req = Net::HTTP::Get.new(uri)
+      req['$Authorization.feedly'] = '$FeedlyAuth'
+      req['Authorization'] = "OAuth #{token}"
 
-    def get_info
-      json = Api.fetch(:feeds, @id)
-      @subscribers = json.fetch(:subscribers) { nil }
-      @title       = json.fetch(:title) { nil }
-      @velocity    = json.fetch(:velocity) { nil }
-    end
+      response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+        http.request(req)
+      end
 
-    def items(params = {})
-      Api.fetch(:streams, @id, params).fetch(:items)
+      raise BadRequest if 'null' == response.body
+
+      case response.code.to_i
+      when 200 then response.body
+      when 401 then raise AuthError
+      when 403 then raise AuthError
+      when 404 then raise NotFound
+      when 500 then raise Error
+      else 
+        raise Error
+      end
     end
   end
 
