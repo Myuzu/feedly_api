@@ -20,12 +20,12 @@ module FeedlyApi
     end
 
     def get_tag_contents(tag_id, args = {})
-      tag = CGI.escape("user/#{@user_id}/tag/#{tag_id}")
+      tag = CGI.escape("user/#{user_id}/tag/#{tag_id}")
       make_request("streams/#{tag}/contents", args)
     end
 
     def get_category_contents(category_id, args = {})
-      category = CGI.escape("user/#{@user_id}/category/#{category_id}")
+      category = CGI.escape("user/#{user_id}/category/#{category_id}")
       make_request("/streams/#{category}/contents", args)
     end
 

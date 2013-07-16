@@ -4,11 +4,14 @@ module FeedlyApi
   class Client
     include API
 
-    attr_reader :auth_token, :user_id
+    attr_reader :auth_token
 
     def initialize(auth_token = nil)
       @auth_token = auth_token
-      @user_id = get_user_profile[:id]
+    end
+
+    def user_id
+      get_user_profile[:id]
     end
 
     private

@@ -6,7 +6,7 @@ Early unofficial Feedly API with no external dependencies
 
 ## Limitations
 * no auth for now
-* only feed stats and feed items
+* get methods only
 * continuation not implemented
 
 ## Usage

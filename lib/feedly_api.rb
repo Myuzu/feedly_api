@@ -10,11 +10,13 @@ module FeedlyApi
 
   class << self
     def get(url, token)
-      return nil if token.nil?
       uri = URI(url)
       req = Net::HTTP::Get.new(uri)
-      req['$Authorization.feedly'] = '$FeedlyAuth'
-      req['Authorization'] = "OAuth #{token}"
+
+      unless token.nil?
+        req['$Authorization.feedly'] = '$FeedlyAuth'
+        req['Authorization'] = "OAuth #{token}"
+      end
 
       response = Net::HTTP.start(uri.hostname, uri.port) do |http|
         http.request(req)
