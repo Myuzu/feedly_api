@@ -14,11 +14,16 @@ module FeedlyApi
       get_user_profile[:id]
     end
 
+    def feed(feed_id)
+      data = get_feed_info(feed_id)
+      FeedlyApi::Feed.new data
+    end
+
     private
 
     def make_request(path, argv = {})
       url = FeedlyApi::API_ENDPOINT + path + '?'
-      argv.each do |k,v|
+      argv.each do |k, v|
         url << "#{k}=#{v}&"
       end
       # p url

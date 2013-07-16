@@ -1,22 +1,21 @@
 module FeedlyApi
   class Feed
-    attr_reader :url, :subscribers, :title, :velocity, :id
+    attr_reader :website,
+                :subscribers,
+                :title,
+                :velocity,
+                :id
 
-    def initialize(url)
-      @url = url
-      @id  = "feed%2F#{CGI.escape(@url)}"
-      get_info
+    def initialize(data)
+      @website     = data.fetch(:website)
+      @subscribers = data.fetch(:subscribers)
+      @title       = data.fetch(:title)
+      @velocity    = data.fetch(:velocity)
+      @id          = data.fetch(:id)
     end
 
-    def get_info
-      json = Api.fetch(:feeds, @id)
-      @subscribers = json.fetch(:subscribers) { nil }
-      @title       = json.fetch(:title) { nil }
-      @velocity    = json.fetch(:velocity) { nil }
-    end
-
-    def items(params = {})
-      Api.fetch(:streams, @id, params).fetch(:items)
+    def items
+      []
     end
   end
 end

@@ -96,4 +96,11 @@ describe FeedlyApi::Client do
       expect(client.get_markers[:unreadcounts].last[:count]).to eq 16
     end
   end
+
+  describe '#feed' do
+    it 'returns Feed object for current feed id' do
+      feed = client.feed('feed/https://www.eff.org/rss/updates.xml')
+      expect(feed).to be_instance_of(FeedlyApi::Feed)
+    end
+  end
 end

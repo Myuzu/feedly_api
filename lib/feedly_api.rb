@@ -6,6 +6,8 @@ require 'feedly_api/client'
 require 'feedly_api/feed'
 
 module FeedlyApi
+  # A Ruby client library for Feedly Reader
+
   API_ENDPOINT = 'http://cloud.feedly.com/v3/'.freeze
 
   class << self
@@ -22,6 +24,10 @@ module FeedlyApi
         http.request(req)
       end
 
+      handle_errors(response)
+    end
+
+    def handle_errors(response)
       raise BadRequest if 'null' == response.body
 
       case response.code.to_i
@@ -30,7 +36,7 @@ module FeedlyApi
       when 403 then raise AuthError
       when 404 then raise NotFound
       when 500 then raise Error
-      else 
+      else
         raise Error
       end
     end
