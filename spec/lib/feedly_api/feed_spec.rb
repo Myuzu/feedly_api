@@ -30,9 +30,10 @@ describe FeedlyApi::Feed do
   end
 
   describe '#items' do
-    it 'returns feed items' do
-      expect(feed.items.size).to eq 20
-    end
+    it 'returns feed items'
+    # it 'returns feed items' do
+    #   expect(feed.items.size).to eq 20
+    # end
 
     it 'returns certain amount of feed items'
     it 'returns feed items in certain order'
