@@ -1,4 +1,7 @@
 require 'feedly_api'
 require 'pry'
-require 'coveralls'
-Coveralls.wear!
+
+unless ENV['TRAVIS'].nil?
+  require 'coveralls'
+  Coveralls.wear!
+end
