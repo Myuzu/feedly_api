@@ -1,41 +1,23 @@
 require 'spec_helper'
 
 describe FeedlyApi::Feed do
-  let(:feed_data) { {website: 'https://www.eff.org/rss/updates.xml', subscribers: 2443,
-    title: 'Deeplinks', velocity: 15.2,
-    id: 'feed/https://www.eff.org/rss/updates.xml' }
-  }
-  let(:feed) { FeedlyApi::Feed.new(feed_data) }
+  DEFAULT_ITEMS_SIZE = 20
 
-  describe '#new' do
-    it 'stores website' do
-      expect(feed.website).to eq 'https://www.eff.org/rss/updates.xml'
-    end
-
-    it 'stores subscribers' do
-      expect(feed.subscribers).to eq 2443
-    end
-
-    it 'stores title' do
-      expect(feed.title).to eq 'Deeplinks'
-    end
-
-    it 'stores velocity' do
-      expect(feed.velocity).to eq 15.2
-    end
-
-    it 'stores id' do
-      expect(feed.id).to eq 'feed/https://www.eff.org/rss/updates.xml'
-    end
-  end
+  let(:auth_token) { ENV['FEEDLY_TOKEN']   || 'GREATE_AUTH_TOKEN' }
+  let(:user_id)    { ENV['FEEDLY_USER_ID'] || '00000000-000-NOT-VALID-a29b6679bb3c' }
+  let(:feed_id)    { 'feed/https://www.eff.org/rss/updates.xml' }
+  let(:feed)       { FeedlyApi::Client.new(auth_token).feed(feed_id) }
 
   describe '#items' do
-    it 'returns feed items'
-    # it 'returns feed items' do
-    #   expect(feed.items.size).to eq 20
-    # end
+    it 'returns feed items' do
+      expect(feed.items.size).to eq DEFAULT_ITEMS_SIZE
+    end
 
-    it 'returns certain amount of feed items'
+    it 'returns certain amount of feed items' do
+      items = feed.items(count: 2)
+      expect(items.size).to eq 2
+    end
+
     it 'returns feed items in certain order'
   end
 end

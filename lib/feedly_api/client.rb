@@ -15,8 +15,7 @@ module FeedlyApi
     end
 
     def feed(feed_id)
-      data = get_feed_info(feed_id)
-      FeedlyApi::Feed.new data
+      Feed.new(self, feed_id)
     end
 
     private

@@ -12,27 +12,14 @@ Early unofficial Feedly API with no external dependencies
 ## Usage
 
 ```ruby
-feedly = FeedlyApi::Client.new 
-=> #<FeedlyApi::Client:0x007ff233308ae0 @auth_token=nil>
-client.get_feed_info 'feed/https://www.eff.org/rss/updates.xml'
-=> {:website=>"https://www.eff.org/rss/updates.xml",
- :id=>"feed/https://www.eff.org/rss/updates.xml",
- :subscribers=>2442,
- :title=>"Deeplinks",
- :velocity=>15.2}
-client.get_feed_contents 'feed/https://www.eff.org/rss/updates.xml'
-=> {:direction=>"ltr",
- :continuation=>"13fa6b1134b:1a10f:eacbe387",
- :alternate=>
-  [{:href=>"https://www.eff.org/rss/updates.xml", :type=>"text/html"}],
- :id=>"feed/https://www.eff.org/rss/updates.xml",
- :updated=>1373935361457,
- :title=>"Deeplinks",
- :items=>
-  [{:id=> 
-  # ...
-client.get_feed_contents('feed/https://www.eff.org/rss/updates.xml', count: 1).size
-=> 1
+# Create client for API requests; OAuth token optional
+@client = FeedlyApi::Client.new
+# Create Feed object for specific feed id
+@feed = @client.feed('feed/https://www.eff.org/rss/updates.xml')
+# Get array of feed items hashes
+@feed.items
+# Pass params to get more or less items
+@feed.items(count: 50)
 ```
 
 ## Supported Ruby Versions
