@@ -25,6 +25,19 @@ Early unofficial Feedly API with no external dependencies
 ## Roadmap
 - [ ] OAuth support
 - [ ] Continuation
+- [ ] OPML API
+- [ ] Markers API
+- [ ] Feeds API
+- [ ] Entries API
+- [ ] Categories API
+- [ ] Subscriptions API
+- [ ] Preferences API
+- [ ] Profile API
+- [ ] Topics API
+- [ ] Tags API
+- [ ] Search API
+- [ ] URL Shortener API
+- [ ] Mixes API
 
 ## Supported Ruby Versions
 
