@@ -22,6 +22,10 @@ Early unofficial Feedly API with no external dependencies
 @feed.items(count: 50)
 ```
 
+## Roadmap
+- [ ] OAuth support
+- [ ] Continuation
+
 ## Supported Ruby Versions
 
 feedly_api is tested under 1.9.3, 2.0.0, 2.1.0, 2.1.1, Ruby HEAD, JRuby (1.9 mode), JRuby HEAD, and Rubinius 2.2.7.
