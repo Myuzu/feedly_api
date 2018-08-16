@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/Myuzu/feedly_api'
   s.summary     = 'Ruby wrapper for Feedly API'
   s.description = 'Simpe unofficial Feedly API wrapper. No auth yet. Zero external dependencies.'
-  s.license     = 'MIT License'
+  s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ['lib']
