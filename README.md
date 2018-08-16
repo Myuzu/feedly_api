@@ -1,6 +1,9 @@
 feedly_api
 ==========
-[![Coverage Status](https://img.shields.io/coveralls/Myuzu/feedly_api.svg)](https://coveralls.io/r/Myuzu/feedly_api?branch=master) [![Build Status](https://api.travis-ci.org/Myuzu/feedly_api.svg)](https://travis-ci.org/Myuzu/feedly_api) [![Code Climate](https://codeclimate.com/github/Myuzu/feedly_api/badges/gpa.svg)](https://codeclimate.com/github/Myuzu/feedly_api) [![Dependency Status](https://gemnasium.com/Myuzu/feedly_api.png)](https://gemnasium.com/Myuzu/feedly_api) [![Gem Version](https://badge.fury.io/rb/feedly_api.svg)](http://badge.fury.io/rb/feedly_api)
+[![Gem Version](https://badge.fury.io/rb/feedly_api.svg)](https://badge.fury.io/rb/feedly_api)
+[![Build Status](https://travis-ci.org/Myuzu/feedly_api.svg?branch=master)](https://travis-ci.org/Myuzu/feedly_api)
+[![Coverage Status](https://coveralls.io/repos/github/Myuzu/feedly_api/badge.svg?branch=master)](https://coveralls.io/github/Myuzu/feedly_api?branch=master)
+[![Code Climate](https://codeclimate.com/github/Myuzu/feedly_api/badges/gpa.svg)](https://codeclimate.com/github/Myuzu/feedly_api)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMyuzu%2Ffeedly_api.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FMyuzu%2Ffeedly_api?ref=badge_shield)
 
 Early unofficial Feedly API with no external dependencies
