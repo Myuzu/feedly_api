@@ -18,7 +18,7 @@ module FeedlyApi
     end
 
     def items(args = {})
-      @client.get_feed_contents(@id, args).fetch(:items) {[]}
+      @client.get_feed_contents(@id, args).fetch(:items) { [] }
     end
 
     private

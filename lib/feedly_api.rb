@@ -28,14 +28,13 @@ module FeedlyApi
     end
 
     def handle_errors(response)
-      raise BadRequest if 'null' == response.body
+      raise BadRequest if response.body == 'null'
 
       case response.code.to_i
       when 200 then response.body
       when 401 then raise AuthError
       when 403 then raise AuthError
       when 404 then raise NotFound
-      when 500 then raise Error
       else
         raise Error
       end

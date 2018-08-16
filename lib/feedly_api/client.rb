@@ -7,10 +7,10 @@ module FeedlyApi
   class Client
     include API
 
-    attr_reader :access_token
+    attr_reader :auth_token
 
-    def initialize(access_token = nil)
-      @access_token = access_token
+    def initialize(auth_token = nil)
+      @auth_token = auth_token
     end
 
     def feed(feed_id)
@@ -27,7 +27,7 @@ module FeedlyApi
 
       api_response = FeedlyApi.get(url, @auth_token)
 
-      MultiJson.load(api_response, symbolize_keys: true)
+      JSON.parse(api_response, symbolize_names: true)
     end
   end
 end
