@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe FeedlyApi::Client do
@@ -52,7 +54,7 @@ describe FeedlyApi::Client do
 
     it 'retrievs custom number of feed items' do
       FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'feed_contents_10.json')))
-      feed_contents = client.get_feed_contents('feed/https://www.eff.org/rss/updates.xml', {count: 10})
+      feed_contents = client.get_feed_contents('feed/https://www.eff.org/rss/updates.xml', count: 10)
       expect(feed_contents[:items].size).to eq 10
     end
 
@@ -84,7 +86,7 @@ describe FeedlyApi::Client do
 
     it 'retrievs custom number of feed items for specific category_id' do
       FeedlyApi.stub(:get).and_return(File.read(File.join('spec', 'fixtures', 'uncategoriezed_10.json')))
-      feed_contents = client.get_category_contents('global.uncategorized', {count: 10})
+      feed_contents = client.get_category_contents('global.uncategorized', count: 10)
       expect(feed_contents[:items].size).to eq 10
     end
   end

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module FeedlyApi
+  # Feed
   class Feed
     attr_reader :website,
                 :subscribers,

@@ -1,17 +1,16 @@
+# frozen_string_literal: true
+
 require 'feedly_api/api'
 
 module FeedlyApi
+  # Client
   class Client
     include API
 
-    attr_reader :auth_token
+    attr_reader :access_token
 
-    def initialize(auth_token = nil)
-      @auth_token = auth_token
-    end
-
-    def user_id
-      get_user_profile[:id]
+    def initialize(access_token = nil)
+      @access_token = access_token
     end
 
     def feed(feed_id)
@@ -25,8 +24,10 @@ module FeedlyApi
       argv.each do |k, v|
         url << "#{k}=#{v}&"
       end
-      # p url
-      JSON.parse(FeedlyApi.get(url, @auth_token), symbolize_names: true)
+
+      api_response = FeedlyApi.get(url, @auth_token)
+
+      MultiJson.load(api_response, symbolize_keys: true)
     end
   end
 end

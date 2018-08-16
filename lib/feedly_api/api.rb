@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 module FeedlyApi
+  # API
   module API
+    def user_id
+      get_user_profile[:id]
+    end
 
     def get_user_profile
       make_request('profile')
