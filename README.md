@@ -41,7 +41,7 @@ Early unofficial Feedly API with no external dependencies
 
 ## Supported Ruby Versions
 
-feedly_api is tested under 1.9.3, 2.0.0, 2.1.0, 2.1.1, Ruby HEAD, JRuby (1.9 mode), JRuby HEAD, and Rubinius 2.2.7.
+feedly_api is tested under 2.2.10, 2.3.7, 2.4.4, 2.5.1, 2.6.0-preview2, Ruby HEAD, JRuby 9.2.0.0.
 
 ## License
 

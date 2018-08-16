@@ -1,5 +1,4 @@
-# encoding: utf-8
-$: << File.expand_path('../lib', __FILE__)
+$LOAD_PATH << File.expand_path('lib', __dir__)
 require 'feedly_api'
 
 Gem::Specification.new do |s|
@@ -7,17 +6,19 @@ Gem::Specification.new do |s|
   s.version     = FeedlyApi::VERSION
   s.authors     = ['Myuzu']
   s.homepage    = 'https://github.com/Myuzu/feedly_api'
-  s.summary     = %q{Ruby wrapper for Feedly API}
-  s.description = %q{Simpe unofficial Feedly API wrapper. No auth yet.}
+  s.summary     = 'Ruby wrapper for Feedly API'
+  s.description = 'Simpe unofficial Feedly API wrapper. No auth yet. Zero external dependencies.'
   s.license     = 'MIT License'
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ['lib']
 
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.2.10'
 
-  s.add_development_dependency 'rake'
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'pry'
   s.add_development_dependency 'coveralls'
+  s.add_development_dependency 'pry-byebug'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'reek'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rubocop'
 end
