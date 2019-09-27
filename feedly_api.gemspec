@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'coveralls', '~> 0.8.22'
   s.add_development_dependency 'pry',       '~> 0.11.3'
-  s.add_development_dependency 'rake',      '~> 12.3', '>= 12.3.1'
+  s.add_development_dependency 'rake',      '>= 12.3.1', '~> 13.0'
   s.add_development_dependency 'reek',      '~> 4.8',  '>= 4.8.2'
   s.add_development_dependency 'rspec',     '~> 3.8'
   s.add_development_dependency 'rubocop',   '~> 0.59.1'
